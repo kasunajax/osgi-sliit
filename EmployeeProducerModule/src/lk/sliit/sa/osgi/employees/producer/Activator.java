@@ -13,6 +13,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
+		System.out.println("HelloWorld!");
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
