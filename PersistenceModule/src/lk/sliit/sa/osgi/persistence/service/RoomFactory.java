@@ -23,13 +23,13 @@ public interface RoomFactory extends Factory{
 	
 	public static final String DELETE_BY_ID_QUERY = "DELETE FROM " + TABLE + " WHERE id = ?";
 	
-	public void add(Room room) throws SQLException;
+	public void add(Room room) throws SQLException, Exception;
 	
-	public void update(Room room) throws SQLException;
+	public void update(Room room) throws SQLException, Exception;
 	
 	public Optional<List<Room>> findBy(String field, Object value) throws SQLException;
 	
-	public void deleteById(int id) throws SQLException;
+	public void deleteById(int id) throws SQLException, Exception;
 	
 	public Optional<Room> findById(int id) throws SQLException;
 	

@@ -9,7 +9,7 @@ public class PersistenceServiceImpl implements PersistenceService{
 	public Factory getFactory(String type) throws Exception {
 		
 		if(type.equals(Factory.ROOMS)) {
-		 
+	
 			return new RoomFactoryImpl();
 			
 		}

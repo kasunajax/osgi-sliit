@@ -20,12 +20,15 @@ public class RoomFactoryImpl implements RoomFactory{
 	public RoomFactoryImpl() throws SQLException, ClassNotFoundException {
 
 		Class.forName("com.mysql.cj.jdbc.Driver");  
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/osgi","root","17121995knjvoid");  
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/osgi","root","");  
 
 	}
 	
 	@Override
-	public void add(Room room) throws SQLException {
+	public void add(Room room) throws Exception {
+		
+		findById(room.getId()).ifPresent(r -> new Exception("Room " + r.getId() + " Exists"));
+		
 		PreparedStatement stmt = conn.prepareStatement(RoomFactory.INSERT_QUERY);
 		stmt.setInt(1, room.getId());
 		stmt.setString(2, room.getTitle());
@@ -35,7 +38,10 @@ public class RoomFactoryImpl implements RoomFactory{
 	}
 
 	@Override
-	public void update(Room room) throws SQLException {
+	public void update(Room room) throws Exception {
+		
+		findById(room.getId()).orElseThrow(() -> new Exception("Room Not Found !"));
+		
 		PreparedStatement stmt = conn.prepareStatement(RoomFactory.UPDATE_QUERY);
 		stmt.setString(1, room.getTitle());
 		stmt.setString(2, room.getStatus());
@@ -66,7 +72,10 @@ public class RoomFactoryImpl implements RoomFactory{
 	}
 
 	@Override
-	public void deleteById(int id) throws SQLException {
+	public void deleteById(int id) throws Exception {
+		
+		findById(id).orElseThrow(() -> new Exception("Room Not Found !"));
+		
 		PreparedStatement stmt = conn.prepareStatement(RoomFactory.DELETE_BY_ID_QUERY);
 		stmt.setInt(1, id);
 		stmt.execute();
