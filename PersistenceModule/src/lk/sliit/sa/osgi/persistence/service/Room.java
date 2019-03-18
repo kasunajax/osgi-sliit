@@ -2,8 +2,8 @@ package lk.sliit.sa.osgi.persistence.service;
 
 public class Room {
 
-	public final String RESERVED = "reserved";
-	public final String AVAILABLE = "available";
+	public static final String RESERVED = "reserved";
+	public static final String AVAILABLE = "available";
 	
 	private int id;
 	private String status;
@@ -15,6 +15,8 @@ public class Room {
 		this.status = status;
 		this.title = title;
 	}
+	
+	public Room() {}
 	
 	public int getId() {
 		return id;
@@ -33,6 +35,11 @@ public class Room {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@Override
+	public String toString() {
+		return "Room [id=" + id + ", status=" + status + ", title=" + title + "]";
 	}
 	
 	
