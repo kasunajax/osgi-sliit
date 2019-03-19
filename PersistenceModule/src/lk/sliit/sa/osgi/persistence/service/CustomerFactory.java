@@ -41,11 +41,11 @@ public interface CustomerFactory extends Factory{
 	
 	public void update(Customer room) throws SQLException, Exception;
 	
-	public Optional<List<Customer>> findBy(String field, Object value) throws SQLException;
+	public Optional<List<Customer>> findBy(String field, Object value) throws SQLException, Exception;
 	
 	public void deleteById(int id) throws SQLException, Exception;
 	
-	public Optional<Customer> findById(int id) throws SQLException;
+	public Optional<Customer> findById(int id) throws SQLException, Exception;
 	
 	
 }

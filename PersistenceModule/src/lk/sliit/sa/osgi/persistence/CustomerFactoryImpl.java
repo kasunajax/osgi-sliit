@@ -33,7 +33,7 @@ public class CustomerFactoryImpl implements CustomerFactory{
 	}
 	
 	@Override
-	public void add(Customer customer) throws SQLException, CustomerAlreadyExistsException   {
+	public void add(Customer customer) throws SQLException, CustomerAlreadyExistsException, Exception   {
 		
 		Optional<Customer> rm = findById(customer.getId());
 		if(rm.isPresent())
@@ -51,7 +51,7 @@ public class CustomerFactoryImpl implements CustomerFactory{
 	}
 
 	@Override
-	public void update(Customer customer) throws CustomerNotFoundException, SQLException  {
+	public void update(Customer customer) throws CustomerNotFoundException, SQLException, Exception  {
 		
 		findById(customer.getId()).orElseThrow(() -> new CustomerNotFoundException());
 		
@@ -86,7 +86,7 @@ public class CustomerFactoryImpl implements CustomerFactory{
 	}
 	
 	@Override
-	public Optional<List<Customer>> findBy(String field, Object value) throws SQLException {
+	public Optional<List<Customer>> findBy(String field, Object value) throws SQLException, Exception {
 		
 		String query = CustomerFactory.SELECT_BY.replaceFirst(":field", field);
 		PreparedStatement stmt = conn.prepareStatement(query);
@@ -103,7 +103,11 @@ public class CustomerFactoryImpl implements CustomerFactory{
 			String username = rs.getString(CustomerFactory.COL_USERNAME);
 			String password = rs.getString(CustomerFactory.COL_PASSWORD);
 			String contact = rs.getString(CustomerFactory.COL_CONTACT);
-			customers.add(new Customer(id, fname, lname, nic, username, password, contact));
+			Customer customer = new Customer(id, fname, lname, nic, username, password, contact);
+			
+			new RoomFactoryImpl().findByCustomerId(id).ifPresent(rooms -> rooms.forEach(customer::addRoom));
+			
+			customers.add(customer);
 		}
 		
 		return customers.size() > 0 ? Optional.of(customers): Optional.empty();
@@ -111,7 +115,7 @@ public class CustomerFactoryImpl implements CustomerFactory{
 	}
 
 	@Override
-	public void deleteById(int id) throws CustomerNotFoundException, SQLException  {
+	public void deleteById(int id) throws CustomerNotFoundException, SQLException, Exception  {
 		
 		findById(id).orElseThrow(() -> new CustomerNotFoundException());
 		
@@ -121,7 +125,7 @@ public class CustomerFactoryImpl implements CustomerFactory{
 	}
 
 	@Override
-	public Optional<Customer> findById(int id) throws SQLException {
+	public Optional<Customer> findById(int id) throws SQLException, Exception {
 		PreparedStatement stmt = conn.prepareStatement(CustomerFactory.SELECT_BY_ID);
 		stmt.setInt(1, id);
 		ResultSet rs = stmt.executeQuery();
@@ -135,7 +139,11 @@ public class CustomerFactoryImpl implements CustomerFactory{
 			String username = rs.getString(CustomerFactory.COL_USERNAME);
 			String password = rs.getString(CustomerFactory.COL_PASSWORD);
 			String contact = rs.getString(CustomerFactory.COL_CONTACT);
-			customer = new Customer(id, fname, lname, nic, username, password, contact);
+			Customer c = new Customer(id, fname, lname, nic, username, password, contact);
+			
+			new RoomFactoryImpl().findByCustomerId(id).ifPresent(rooms -> rooms.forEach(c::addRoom));
+			
+			customer = c;
 		}
 		
 		return Optional.ofNullable(customer);
