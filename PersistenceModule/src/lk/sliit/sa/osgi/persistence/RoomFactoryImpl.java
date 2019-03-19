@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,7 @@ public class RoomFactoryImpl implements RoomFactory{
 		stmt.execute();
 		
 	}
+	
 
 	@Override
 	public Optional<List<Room>> findBy(String field, Object value) throws SQLException {
@@ -67,10 +69,20 @@ public class RoomFactoryImpl implements RoomFactory{
 		
 		while(rs.next()) {
 			int id = rs.getInt(RoomFactory.COL_ID);
+//			String title = rs.getString(RoomFactory.COL_TITLE);
+//			double price = rs.getDouble(RoomFactory.COL_PRICE);
+//			String type = rs.getString(RoomFactory.COL_TYPE);
+//			rooms.add(new Room(id, title, price, type));
+			
 			String title = rs.getString(RoomFactory.COL_TITLE);
 			double price = rs.getDouble(RoomFactory.COL_PRICE);
 			String type = rs.getString(RoomFactory.COL_TYPE);
-			rooms.add(new Room(id, title, price, type));
+			Date checkIn = (rs.getDate(RoomFactory.COL_CHECKIN) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKIN).getTime()): null;
+			Date checkOut = (rs.getDate(RoomFactory.COL_CHECKOUT) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKOUT).getTime()): null;
+			String status = rs.getString(RoomFactory.COL_STATUS);
+			
+			Room room = new Room(id, status, title, price, type, checkIn, checkOut, (status != null ? true: false));
+			rooms.add(room);
 		}
 		
 		return rooms.size() > 0 ? Optional.of(rooms): Optional.empty();
@@ -86,7 +98,7 @@ public class RoomFactoryImpl implements RoomFactory{
 		stmt.setInt(1, id);
 		stmt.execute();
 	}
-
+	
 	@Override
 	public Optional<Room> findById(int id) throws SQLException {
 		PreparedStatement stmt = conn.prepareStatement(RoomFactory.SELECT_BY_ID);
@@ -96,13 +108,47 @@ public class RoomFactoryImpl implements RoomFactory{
 		Room room = null;
 		
 		if(rs.next()) {
+//			String title = rs.getString(RoomFactory.COL_TITLE);
+//			double price = rs.getDouble(RoomFactory.COL_PRICE);
+//			String type = rs.getString(RoomFactory.COL_TYPE);
+//			room = new Room(id, title, price, type);
+			
 			String title = rs.getString(RoomFactory.COL_TITLE);
 			double price = rs.getDouble(RoomFactory.COL_PRICE);
 			String type = rs.getString(RoomFactory.COL_TYPE);
-			room = new Room(id, title, price, type);
+			Date checkIn = (rs.getDate(RoomFactory.COL_CHECKIN) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKIN).getTime()): null;
+			Date checkOut = (rs.getDate(RoomFactory.COL_CHECKOUT) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKOUT).getTime()): null;
+			String status = rs.getString(RoomFactory.COL_STATUS);
+			
+			room = new Room(id, status, title, price, type, checkIn, checkOut, (status != null ? true: false));
+
 		}
 		
 		return Optional.ofNullable(room);
+	}
+	
+	public Optional<List<Room>> findByCustomerId(int id) throws SQLException {
+		PreparedStatement stmt = conn.prepareStatement(RoomFactory.SELECT_BY_CUSTOMER_ID);
+		stmt.setInt(1, id);
+		ResultSet rs = stmt.executeQuery();
+
+		List<Room> rooms = new ArrayList<>();
+		
+		while(rs.next()) {
+		
+			int roomId = rs.getInt(RoomFactory.COL_ID);
+			String title = rs.getString(RoomFactory.COL_TITLE);
+			double price = rs.getDouble(RoomFactory.COL_PRICE);
+			String type = rs.getString(RoomFactory.COL_TYPE);
+			Date checkIn = (rs.getDate(RoomFactory.COL_CHECKIN) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKIN).getTime()): null;
+			Date checkOut = (rs.getDate(RoomFactory.COL_CHECKOUT) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKOUT).getTime()): null;
+			String status = rs.getString(RoomFactory.COL_STATUS);
+			
+			rooms.add( new Room(roomId, status, title, price, type, checkIn, checkOut, (status != null ? true: false)));
+
+		}
+		
+		return rooms.size() > 0 ? Optional.of(rooms): Optional.empty();
 	}
 
 	@Override
@@ -117,10 +163,16 @@ public class RoomFactoryImpl implements RoomFactory{
 			String title = rs.getString(RoomFactory.COL_TITLE);
 			double price = rs.getDouble(RoomFactory.COL_PRICE);
 			String type = rs.getString(RoomFactory.COL_TYPE);
-			rooms.add(new Room(id, title, price, type));
+			Date checkIn = (rs.getDate(RoomFactory.COL_CHECKIN) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKIN).getTime()): null;
+			Date checkOut = (rs.getDate(RoomFactory.COL_CHECKOUT) != null) ? new Date(rs.getDate(RoomFactory.COL_CHECKOUT).getTime()): null;
+			String status = rs.getString(RoomFactory.COL_STATUS);
+			
+			Room room = new Room(id, status, title, price, type, checkIn, checkOut, (status != null ? true: false));
+			rooms.add(room);
 		}
 		
 		return rooms.size() > 0 ? Optional.of(rooms): Optional.empty();
 	}
+
 
 }

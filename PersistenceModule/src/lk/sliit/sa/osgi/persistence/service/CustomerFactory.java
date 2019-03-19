@@ -15,7 +15,11 @@ public interface CustomerFactory extends Factory{
 	public static final String COL_PASSWORD = "password";
 	public static final String COL_CONTACT = "contact_no";
 	
+	public static final String COL_CUSTOMER_ID = "customer_id";
+	public static final String COL_ROOM_ID = "room_id";
+	
 	public static final String TABLE = "customers";
+	public static final String TABLE_BOOKING = "bookings";
 	
 	public static final String INSERT_QUERY = "INSERT INTO " + TABLE + " (" + COL_FNAME + ", " + COL_LNAME+ ", " + COL_NIC+ ", " + COL_USERNAME+ ", " + COL_PASSWORD + ", " + COL_CONTACT + ") " + "VALUES (?, ?, ?, ?, ?, ?)";
 	
@@ -28,6 +32,8 @@ public interface CustomerFactory extends Factory{
 	public static final String DELETE_BY_ID_QUERY = "DELETE FROM " + TABLE + " WHERE id = ?";
 	
 	public static final String SELECT_ALL = "SELECT * FROM " + TABLE;
+	
+	public static final String BOOK_QUERY = "INSERT INTO "+TABLE_BOOKING+" ("+COL_CUSTOMER_ID+", "+COL_ROOM_ID+", "+RoomFactory.COL_CHECKIN+", "+RoomFactory.COL_CHECKOUT+", "+RoomFactory.COL_STATUS+") VALUES (?, ?, ?, ?, ?);";
 	
 	public Optional<List<Customer>> findAll() throws SQLException, Exception;
 	

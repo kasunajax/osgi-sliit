@@ -1,6 +1,7 @@
 package lk.sliit.sa.osgi.persistence;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,8 +65,26 @@ public class CustomerFactoryImpl implements CustomerFactory{
 		stmt.setInt(7, customer.getId());
 		stmt.execute();
 		
-	}
+		customer.getRooms().ifPresent(rooms -> rooms.forEach(room -> {
+			
 
+			try {
+				PreparedStatement stmt_room = conn.prepareStatement(CustomerFactory.BOOK_QUERY);
+
+				stmt_room.setInt(1, customer.getId());
+				stmt_room.setInt(2, room.getId());
+				stmt_room.setDate(3, new Date(room.getCheckIn().getTime()));
+				stmt_room.setDate(4, new Date(room.getCheckout().getTime()));
+				stmt_room.setString(5, room.getStatus());
+				stmt_room.execute();
+			
+			} catch (SQLException e) {
+				System.err.println(e.getMessage());
+			}
+			
+		}));
+	}
+	
 	@Override
 	public Optional<List<Customer>> findBy(String field, Object value) throws SQLException {
 		
@@ -137,7 +156,12 @@ public class CustomerFactoryImpl implements CustomerFactory{
 			String username = rs.getString(CustomerFactory.COL_USERNAME);
 			String password = rs.getString(CustomerFactory.COL_PASSWORD);
 			String contact = rs.getString(CustomerFactory.COL_CONTACT);
-			customers.add(new Customer(id, fname, lname, nic, username, password, contact));
+			
+			Customer customer = new Customer(id, fname, lname, nic, username, password, contact);
+			
+			new RoomFactoryImpl().findByCustomerId(id).ifPresent(rooms -> rooms.forEach(customer::addRoom));
+			
+			customers.add(customer);
 		}
 		
 		return customers.size() > 0 ? Optional.of(customers): Optional.empty();
