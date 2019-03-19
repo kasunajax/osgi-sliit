@@ -10,12 +10,14 @@ public interface RoomFactory extends Factory{
 	public static final String COL_ID = "id";
 	public static final String COL_TITLE = "title";
 	public static final String COL_STATUS = "status";
+	public static final String COL_PRICE = "price";
+	public static final String COL_TYPE = "type";
 	
 	public static final String TABLE = "rooms";
 	
-	public static final String INSERT_QUERY = "INSERT INTO " + TABLE + " (" + COL_ID + ", " + COL_TITLE + ", " + COL_STATUS + ") " + "VALUES (?, ?, ?)";
+	public static final String INSERT_QUERY = "INSERT INTO " + TABLE + " (" + COL_TITLE + ", " + COL_PRICE + ", " + COL_TYPE + ") " + "VALUES (?, ?, ?)";
 	
-	public static final String UPDATE_QUERY = "UPDATE " + TABLE + " SET " + COL_TITLE + " = ?, " + COL_STATUS + " = ? WHERE " + COL_ID + " = ?";
+	public static final String UPDATE_QUERY = "UPDATE " + TABLE + " SET " + COL_TITLE + " = ?, " + COL_PRICE + " = ?, " + COL_TYPE + " = ? WHERE " + COL_ID + " = ?";
 	
 	public static final String SELECT_BY = "SELECT * FROM " + TABLE + " WHERE :field = ?";
 	
