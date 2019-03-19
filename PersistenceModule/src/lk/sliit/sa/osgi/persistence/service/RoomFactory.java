@@ -25,6 +25,10 @@ public interface RoomFactory extends Factory{
 	
 	public static final String DELETE_BY_ID_QUERY = "DELETE FROM " + TABLE + " WHERE id = ?";
 	
+	public static final String SELECT_ALL = "SELECT * FROM " + TABLE;
+	
+	public Optional<List<Room>> findAll() throws SQLException, Exception;
+	
 	public void add(Room room) throws SQLException, Exception;
 	
 	public void update(Room room) throws SQLException, Exception;

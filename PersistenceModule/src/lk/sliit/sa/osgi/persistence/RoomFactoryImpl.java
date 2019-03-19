@@ -105,4 +105,22 @@ public class RoomFactoryImpl implements RoomFactory{
 		return Optional.ofNullable(room);
 	}
 
+	@Override
+	public Optional<List<Room>> findAll() throws SQLException, Exception {
+
+		PreparedStatement stmt = conn.prepareStatement(RoomFactory.SELECT_ALL);
+		ResultSet rs = stmt.executeQuery();
+		List<Room> rooms = new ArrayList<>();
+		
+		while(rs.next()) {
+			int id = rs.getInt(RoomFactory.COL_ID);
+			String title = rs.getString(RoomFactory.COL_TITLE);
+			double price = rs.getDouble(RoomFactory.COL_PRICE);
+			String type = rs.getString(RoomFactory.COL_TYPE);
+			rooms.add(new Room(id, title, price, type));
+		}
+		
+		return rooms.size() > 0 ? Optional.of(rooms): Optional.empty();
+	}
+
 }
