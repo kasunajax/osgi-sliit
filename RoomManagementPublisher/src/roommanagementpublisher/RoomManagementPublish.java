@@ -14,6 +14,5 @@ public interface RoomManagementPublish {
 	public void DisplayRoomDetails();
 	public boolean DeleteRoomDetails(int id);
 	
-	//define search parameters
-	public void searchRooms();
+	public void searchRoomsById(int id);
 }

@@ -1,6 +1,7 @@
 package roommanagementpublisher;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import lk.sliit.sa.osgi.persistence.RoomFactoryImpl;
 import lk.sliit.sa.osgi.persistence.service.Room;
@@ -83,8 +84,28 @@ public class RoomManageImpl implements RoomManagementPublish{
 
 
 	@Override
-	public void searchRooms() {
-		// TODO Auto-generated method stub
+	public void searchRoomsById(int id) {
+		try {
+			RoomFactoryImpl room = new RoomFactoryImpl();
+			Optional<Room> roomDet= room.findById(id);
+			
+			if(roomDet.isPresent()){
+				Room rm= roomDet.get();
+				System.out.println("**** Details of Room Id "+ id+" ****");
+			    System.out.println("Room ID:     "+rm.getId());
+			    System.out.println("Room Name:   "+rm.getTitle());
+			    System.out.println("Room Status: "+rm.getStatus());
+			    System.out.println("*****************");
+			}
+			else {
+			    System.out.println("No Room Details were found tothe entered Room ID");
+			}
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Something went wrong");
+		} catch (SQLException e) {
+			System.out.println("Something went wrong");
+		}
 		
 	}
 
@@ -109,7 +130,5 @@ public class RoomManageImpl implements RoomManagementPublish{
 		}
 		return success;
 	}
-
-
 
 }
