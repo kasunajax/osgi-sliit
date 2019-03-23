@@ -37,7 +37,6 @@ public class RoomManageImpl implements RoomManagementPublish{
 
 	@Override
 	public boolean updateRoomDetails(int id, String title, String status){
-		// TODO Auto-generated method stub	
 		boolean success =false;
 		Room room = new Room();
 		room.setId(id);
@@ -82,16 +81,33 @@ public class RoomManageImpl implements RoomManagementPublish{
 		
 	}
 
-	@Override
-	public void DeleteRoomDetails() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void searchRooms() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean DeleteRoomDetails(int id) {
+		boolean success = false;
+		try {
+			System.out.println("Updating Room Details");
+			RoomFactoryImpl room = new RoomFactoryImpl();
+			room.deleteById(id);
+			success = true;
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		}
+		return success;
 	}
 
 

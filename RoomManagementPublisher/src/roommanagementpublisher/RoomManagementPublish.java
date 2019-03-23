@@ -12,7 +12,7 @@ public interface RoomManagementPublish {
 	
 	public void checkAvailability();
 	public void DisplayRoomDetails();
-	public void DeleteRoomDetails();
+	public boolean DeleteRoomDetails(int id);
 	
 	//define search parameters
 	public void searchRooms();
