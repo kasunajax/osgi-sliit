@@ -4,8 +4,8 @@ public interface RoomManagementPublish {
 
 	//need to decide return types
 	
-	public void addRoomDetails(int id,String title,String status);
-	public void updateRoomDetails();
+	public boolean addRoomDetails(int id,String title,String status);
+	public boolean updateRoomDetails(int id,String title,String status);
 	
 	//only to update availability of room
 	public void updateRoomStatus();
