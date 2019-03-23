@@ -133,7 +133,6 @@ public class RoomManageImpl implements RoomManagementPublish{
 				}
 			}
 			else {
-
 			    System.out.println("NO data for searched parameters");
 			}
 			
