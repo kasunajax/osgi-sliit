@@ -1,13 +1,17 @@
 package roommanagementpublisher;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
+import java.io.*; 
+import java.util.*;
 
 import lk.sliit.sa.osgi.persistence.RoomFactoryImpl;
 import lk.sliit.sa.osgi.persistence.service.Room;
 import lk.sliit.sa.osgi.persistence.service.RoomFactory;
 
 public class RoomManageImpl implements RoomManagementPublish{
+	
 
 	@Override
 	public boolean addRoomDetails(int id, String title, String status) {
@@ -35,6 +39,8 @@ public class RoomManageImpl implements RoomManagementPublish{
 			
 		return success;
 	}
+	
+	
 
 	@Override
 	public boolean updateRoomDetails(int id, String title, String status){
@@ -58,12 +64,11 @@ public class RoomManageImpl implements RoomManagementPublish{
 		} catch (Exception e) {
 			System.out.println("Something went wrong");
 			e.printStackTrace();
-		}
-		
-	return success;
-		
+		}		
+	return success;	
 	}
 
+	
 	@Override
 	public void updateRoomStatus() {
 		// TODO Auto-generated method stub
@@ -105,9 +110,43 @@ public class RoomManageImpl implements RoomManagementPublish{
 			System.out.println("Something went wrong");
 		} catch (SQLException e) {
 			System.out.println("Something went wrong");
+		}	
+	}
+	
+	
+	@Override
+	public void searchRoomsByAny(String field, String value) {
+		try {
+			RoomFactoryImpl room = new RoomFactoryImpl();
+			Optional<List<Room>> roomDet = room.findBy(field, value);
+			
+			if(roomDet.isPresent()) {
+				System.out.println("******************Room Details***************");
+				List<Room> rm = roomDet.get();
+				Iterator<Room> roomIterator = rm.iterator();
+				while(roomIterator.hasNext()) {
+					Room rmObj = roomIterator.next();
+					  System.out.println("Room ID:     "+rmObj.getId());
+					    System.out.println("Room Name:   "+rmObj.getTitle());
+					    System.out.println("Room Status: "+rmObj.getStatus());
+					    System.out.println("*****************");
+				}
+			}
+			else {
+
+			    System.out.println("NO data for searched parameters");
+			}
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
 		}
 		
 	}
+
 
 	@Override
 	public boolean DeleteRoomDetails(int id) {
@@ -131,4 +170,5 @@ public class RoomManageImpl implements RoomManagementPublish{
 		return success;
 	}
 
+	
 }

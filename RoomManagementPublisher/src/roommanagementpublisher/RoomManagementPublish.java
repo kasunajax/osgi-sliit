@@ -15,4 +15,5 @@ public interface RoomManagementPublish {
 	public boolean DeleteRoomDetails(int id);
 	
 	public void searchRoomsById(int id);
+	public void searchRoomsByAny(String field,String value);
 }
