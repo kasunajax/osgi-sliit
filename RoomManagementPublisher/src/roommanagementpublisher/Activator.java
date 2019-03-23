@@ -15,7 +15,6 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
-		Activator.context = bundleContext;
 		System.out.println("Starting Room management service");
 		registration = bundleContext.registerService(RoomManagementPublish.class.getName(), 
 				new RoomManageImpl(), null);

@@ -6,9 +6,10 @@ import java.util.Optional;
 import java.io.*; 
 import java.util.*;
 
+import lk.sliit.sa.osgi.persistence.PersistenceServiceImpl;
 import lk.sliit.sa.osgi.persistence.RoomFactoryImpl;
+import lk.sliit.sa.osgi.persistence.service.Factory;
 import lk.sliit.sa.osgi.persistence.service.Room;
-import lk.sliit.sa.osgi.persistence.service.RoomFactory;
 
 public class RoomManageImpl implements RoomManagementPublish{
 	
@@ -22,7 +23,9 @@ public class RoomManageImpl implements RoomManagementPublish{
 			room.setTitle(title);
 			try {
 				System.out.println("Adding Room Details");
-				RoomFactoryImpl factory = new RoomFactoryImpl();
+				PersistenceServiceImpl imp = new PersistenceServiceImpl();
+				RoomFactoryImpl factory= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+		//		RoomFactoryImpl factory = new RoomFactoryImpl();
 				factory.add(room);
 				success=true;
 			} catch (ClassNotFoundException e) {
@@ -51,7 +54,9 @@ public class RoomManageImpl implements RoomManagementPublish{
 		room.setTitle(title);
 		try {
 			System.out.println("Updating Room Details");
-			RoomFactoryImpl factory = new RoomFactoryImpl();
+			PersistenceServiceImpl imp = new PersistenceServiceImpl();
+			RoomFactoryImpl factory= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+		//	RoomFactoryImpl factory = new RoomFactoryImpl();
 			factory.update(room);
 			success=true;
 		} catch (ClassNotFoundException e) {
@@ -91,7 +96,9 @@ public class RoomManageImpl implements RoomManagementPublish{
 	@Override
 	public void searchRoomsById(int id) {
 		try {
-			RoomFactoryImpl room = new RoomFactoryImpl();
+			PersistenceServiceImpl imp = new PersistenceServiceImpl();
+			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			//RoomFactoryImpl room = new RoomFactoryImpl();
 			Optional<Room> roomDet= room.findById(id);
 			
 			if(roomDet.isPresent()){
@@ -110,6 +117,9 @@ public class RoomManageImpl implements RoomManagementPublish{
 			System.out.println("Something went wrong");
 		} catch (SQLException e) {
 			System.out.println("Something went wrong");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}	
 	}
 	
@@ -117,7 +127,9 @@ public class RoomManageImpl implements RoomManagementPublish{
 	@Override
 	public void searchRoomsByAny(String field, String value) {
 		try {
-			RoomFactoryImpl room = new RoomFactoryImpl();
+			PersistenceServiceImpl imp = new PersistenceServiceImpl();
+			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			//RoomFactoryImpl room = new RoomFactoryImpl();
 			Optional<List<Room>> roomDet = room.findBy(field, value);
 			
 			if(roomDet.isPresent()) {
@@ -142,6 +154,9 @@ public class RoomManageImpl implements RoomManagementPublish{
 		} catch (SQLException e) {
 			System.out.println("Something went wrong");
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -152,7 +167,9 @@ public class RoomManageImpl implements RoomManagementPublish{
 		boolean success = false;
 		try {
 			System.out.println("Updating Room Details");
-			RoomFactoryImpl room = new RoomFactoryImpl();
+			PersistenceServiceImpl imp = new PersistenceServiceImpl();
+			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+		//	RoomFactoryImpl room = new RoomFactoryImpl();
 			room.deleteById(id);
 			success = true;
 			
