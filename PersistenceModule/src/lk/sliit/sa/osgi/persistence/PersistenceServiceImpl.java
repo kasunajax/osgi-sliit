@@ -12,6 +12,10 @@ public class PersistenceServiceImpl implements PersistenceService{
 	
 			return new RoomFactoryImpl();
 			
+		} else if (type.equals(Factory.CUSTOMERS)) {
+			
+			return new CustomerFactoryImpl();
+			
 		}
 		
 		throw new Exception("Factory Not Found !");
