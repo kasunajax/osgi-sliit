@@ -1,10 +1,15 @@
 package roommanagementpublisher;
 
+import lk.sliit.sa.osgi.persistence.service.Room;
+
 public class RoomManageImpl implements RoomManagementPublish{
 
 	@Override
-	public void addRoomDetails() {
-		// TODO Auto-generated method stub
+	public void addRoomDetails(int id, String title, String status) {
+			Room room = new Room();
+			room.setId(id);
+			room.setStatus(status);
+			room.setTitle(title);
 		
 	}
 
@@ -43,5 +48,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }

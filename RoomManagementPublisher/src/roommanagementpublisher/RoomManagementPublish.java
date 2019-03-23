@@ -4,7 +4,7 @@ public interface RoomManagementPublish {
 
 	//need to decide return types
 	
-	public void addRoomDetails();
+	public void addRoomDetails(int id,String title,String status);
 	public void updateRoomDetails();
 	
 	//only to update availability of room
