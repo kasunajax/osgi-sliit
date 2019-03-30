@@ -12,10 +12,9 @@ public interface RoomManagementPublish {
 	public boolean DeleteRoomDetails(int id);
 	public void searchRoomsById(int id);
 	public void searchRoomsByAny(String field,String value);
+	public void searchAll();
+	public void searchByCustomerID(int custmID);
 	
 	//not implemented
 	//only to update availability of room
-	public void updateRoomStatus();	
-	public void checkAvailability();
-	public void DisplayRoomDetails();
 }

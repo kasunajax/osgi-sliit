@@ -17,13 +17,11 @@ public class RoomManageImpl implements RoomManagementPublish{
 	
 
 	@Override
-	public boolean addRoomDetails(int id, String title, String status) {
+	public boolean addRoomDetails(int id, String title, String type) {
 		boolean success =false;
 			Room room = new Room();
 			room.setId(id);
-			room.setStatus(status);
-			room.setTitle(title);
-			room.setType(Type.SINGLE);
+			room.setType(type);
 			try {
 				System.out.println("Adding Room Details");
 				PersistenceServiceImpl imp = new PersistenceServiceImpl();
@@ -83,24 +81,6 @@ public class RoomManageImpl implements RoomManagementPublish{
 	return success;	
 	}
 
-	
-	@Override
-	public void updateRoomStatus() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void checkAvailability() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void DisplayRoomDetails() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	@Override
@@ -128,7 +108,6 @@ public class RoomManageImpl implements RoomManagementPublish{
 		} catch (SQLException e) {
 			System.out.println("Something went wrong");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
@@ -194,6 +173,82 @@ public class RoomManageImpl implements RoomManagementPublish{
 			e.printStackTrace();
 		}
 		return success;
+	}
+
+
+
+	@Override
+	public void searchAll() {
+		try {
+			PersistenceServiceImpl imp = new PersistenceServiceImpl();
+			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			//RoomFactoryImpl room = new RoomFactoryImpl();
+			Optional<List<Room>> roomDet = room.findAll();
+			
+			if(roomDet.isPresent()) {
+				System.out.println("******************Room Details***************");
+				List<Room> rm = roomDet.get();
+				Iterator<Room> roomIterator = rm.iterator();
+				while(roomIterator.hasNext()) {
+					Room rmObj = roomIterator.next();
+					  System.out.println("Room ID:     "+rmObj.getId());
+					    System.out.println("Room Name:   "+rmObj.getTitle());
+					    System.out.println("Room Status: "+rmObj.getStatus());
+					    System.out.println("*****************");
+				}
+			}
+			else {
+			    System.out.println("NO Room details available");
+			}
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+	@Override
+	public void searchByCustomerID(int custmId) {
+		try {
+			PersistenceServiceImpl imp = new PersistenceServiceImpl();
+			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			//RoomFactoryImpl room = new RoomFactoryImpl();
+			Optional<List<Room>> roomDet = room.findByCustomerId(custmId);
+			
+			if(roomDet.isPresent()) {
+				System.out.println("******************Room Details***************");
+				List<Room> rm = roomDet.get();
+				Iterator<Room> roomIterator = rm.iterator();
+				while(roomIterator.hasNext()) {
+					Room rmObj = roomIterator.next();
+					  System.out.println("Room ID:     "+rmObj.getId());
+					    System.out.println("Room Name:   "+rmObj.getTitle());
+					    System.out.println("Room Status: "+rmObj.getStatus());
+					    System.out.println("*****************");
+				}
+			}
+			else {
+			    System.out.println("NO data for searched parameters");
+			}
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Something went wrong");
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	
