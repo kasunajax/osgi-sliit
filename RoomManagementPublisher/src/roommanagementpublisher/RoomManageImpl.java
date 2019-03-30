@@ -1,5 +1,6 @@
 package roommanagementpublisher;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import lk.sliit.sa.osgi.persistence.PersistenceServiceImpl;
 import lk.sliit.sa.osgi.persistence.RoomFactoryImpl;
 import lk.sliit.sa.osgi.persistence.service.Factory;
 import lk.sliit.sa.osgi.persistence.service.Room;
+import lk.sliit.sa.osgi.persistence.service.Room.Type;
 
 public class RoomManageImpl implements RoomManagementPublish{
 	
@@ -21,6 +23,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 			room.setId(id);
 			room.setStatus(status);
 			room.setTitle(title);
+			room.setType(Type.SINGLE);
 			try {
 				System.out.println("Adding Room Details");
 				PersistenceServiceImpl imp = new PersistenceServiceImpl();
@@ -46,12 +49,19 @@ public class RoomManageImpl implements RoomManagementPublish{
 	
 
 	@Override
-	public boolean updateRoomDetails(int id, String title, String status){
+	public boolean updateRoomDetails(int id,String title,String status,Double price,int roomID,
+			String type,Date checkIn,Date checkout,boolean booked ){
 		boolean success =false;
 		Room room = new Room();
 		room.setId(id);
 		room.setStatus(status);
 		room.setTitle(title);
+		room.setPrice(price);
+		room.setId(roomID);
+		room.setType(type);
+		room.setCheckIn(checkIn);
+		room.setCheckout(checkout);
+		room.setBooked(booked);
 		try {
 			System.out.println("Updating Room Details");
 			PersistenceServiceImpl imp = new PersistenceServiceImpl();
