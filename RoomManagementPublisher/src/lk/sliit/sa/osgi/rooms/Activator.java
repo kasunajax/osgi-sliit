@@ -1,4 +1,4 @@
-package roommanagementpublisher;
+package lk.sliit.sa.osgi.rooms;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -6,6 +6,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
 import lk.sliit.sa.osgi.persistence.service.PersistenceService;
+import lk.sliit.sa.osgi.rooms.service.RoomManagementPublish;
 
 public class Activator implements BundleActivator {
 

@@ -1,10 +1,11 @@
-package customerpublisher;
+package lk.sliit.sa.osgi.customers;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
+import lk.sliit.sa.osgi.customers.service.CustomerPublish;
 import lk.sliit.sa.osgi.persistence.service.PersistenceService;
 
 public class Activator implements BundleActivator {

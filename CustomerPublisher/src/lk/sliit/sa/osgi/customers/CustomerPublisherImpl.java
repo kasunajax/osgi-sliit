@@ -1,11 +1,11 @@
-package customerpublisher;
+package lk.sliit.sa.osgi.customers;
 
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-
+import lk.sliit.sa.osgi.customers.service.CustomerPublish;
 import lk.sliit.sa.osgi.persistence.service.Customer;
 import lk.sliit.sa.osgi.persistence.service.CustomerFactory;
 import lk.sliit.sa.osgi.persistence.service.Factory;

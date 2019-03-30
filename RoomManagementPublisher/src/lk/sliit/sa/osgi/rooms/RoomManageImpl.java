@@ -1,4 +1,4 @@
-package roommanagementpublisher;
+package lk.sliit.sa.osgi.rooms;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,6 +10,7 @@ import lk.sliit.sa.osgi.persistence.service.Factory;
 import lk.sliit.sa.osgi.persistence.service.PersistenceService;
 import lk.sliit.sa.osgi.persistence.service.Room;
 import lk.sliit.sa.osgi.persistence.service.RoomFactory;
+import lk.sliit.sa.osgi.rooms.service.RoomManagementPublish;
 
 public class RoomManageImpl implements RoomManagementPublish{
 	

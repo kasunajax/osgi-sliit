@@ -1,4 +1,4 @@
-package customerpublisher;
+package lk.sliit.sa.osgi.customers.service;
 
 import lk.sliit.sa.osgi.persistence.service.Room;
 
