@@ -5,14 +5,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import lk.sliit.sa.osgi.persistence.CustomerFactoryImpl;
-import lk.sliit.sa.osgi.persistence.PersistenceServiceImpl;
-import lk.sliit.sa.osgi.persistence.RoomFactoryImpl;
+
 import lk.sliit.sa.osgi.persistence.service.Customer;
+import lk.sliit.sa.osgi.persistence.service.CustomerFactory;
 import lk.sliit.sa.osgi.persistence.service.Factory;
+import lk.sliit.sa.osgi.persistence.service.PersistenceService;
 import lk.sliit.sa.osgi.persistence.service.Room;
+import lk.sliit.sa.osgi.persistence.service.RoomFactory;
 
 public class CustomerPublisherImpl implements CustomerPublish{
+	
+	
+	private PersistenceService srv;
+	
+	
+
+	public CustomerPublisherImpl(PersistenceService srv) {
+		super();
+		this.srv = srv;
+	}
 
 	@Override
 	public boolean addCustomer(int id, String fname, String lname, String nic, String username, String password,String contact) {
@@ -28,8 +39,9 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		try {
 			
 			System.out.println("Adding Cusotmer");
-			PersistenceServiceImpl impl = new PersistenceServiceImpl();
-			CustomerFactoryImpl fc = (CustomerFactoryImpl) impl.getFactory(Factory.CUSTOMERS);
+
+			CustomerFactory fc = (CustomerFactory) srv.getFactory(Factory.CUSTOMERS);
+			
 			fc.add(cusotmer);
 			Success = true;
 			
@@ -55,8 +67,8 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		try {
 			
 			System.out.println(" Cusotmer ");
-			PersistenceServiceImpl impl = new PersistenceServiceImpl();
-			CustomerFactoryImpl fc = (CustomerFactoryImpl) impl.getFactory(Factory.CUSTOMERS);
+			CustomerFactory fc = (CustomerFactory) srv.getFactory(Factory.CUSTOMERS);
+			
 			fc.update(cusotmer); 
 			
 			/*
@@ -76,9 +88,9 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		boolean success = false;
 		try {
 			System.out.println("Updating Cusotmer Details");
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			CustomerFactoryImpl customer = (CustomerFactoryImpl) imp.getFactory(Factory.CUSTOMERS);
-			customer.deleteById(id);
+			CustomerFactory fc = (CustomerFactory) srv.getFactory(Factory.CUSTOMERS);
+			
+			fc.deleteById(id);
 			success = true;
 			
 		} catch (Exception e) {
@@ -91,9 +103,9 @@ public class CustomerPublisherImpl implements CustomerPublish{
 	@Override
 	public void searchCustomerById(int id) {
 		try {
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			CustomerFactoryImpl customer = (CustomerFactoryImpl) imp.getFactory(Factory.CUSTOMERS);
-			Optional<Customer> customerOptional = customer.findById(id);
+			CustomerFactory fc = (CustomerFactory) srv.getFactory(Factory.CUSTOMERS);
+			
+			Optional<Customer> customerOptional = fc.findById(id);
 			
 			if(customerOptional.isPresent()){
 				Customer cus = customerOptional.get();
@@ -121,9 +133,9 @@ public class CustomerPublisherImpl implements CustomerPublish{
 	@Override
 	public void searchCustomerByAny(String field, String value) {
 		try {
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			CustomerFactoryImpl customer = (CustomerFactoryImpl) imp.getFactory(Factory.CUSTOMERS);
-			Optional<List<Customer>> customerOptional = customer.findAll();
+			CustomerFactory fc = (CustomerFactory) srv.getFactory(Factory.CUSTOMERS);
+			
+			Optional<List<Customer>> customerOptional = fc.findAll();
 			
 			if(customerOptional.isPresent()) {
 				System.out.println("******************Customer Details***************");
@@ -156,9 +168,9 @@ public class CustomerPublisherImpl implements CustomerPublish{
 	public void checkAvailability(String field, Object value) {
 		
 		try {
-		PersistenceServiceImpl imp = new PersistenceServiceImpl();
-		RoomFactoryImpl cusroom= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
-		Optional<List<Room>> customer_room = cusroom.findBy("isbooked" , true);
+			RoomFactory fc = (RoomFactory) srv.getFactory(Factory.ROOMS);
+			
+		Optional<List<Room>> customer_room = fc.findBy("isbooked" , true);
 		
 		if(customer_room .isPresent()) {
 			System.out.println("******************Room Details***************");
@@ -189,10 +201,10 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		
 
 		try {
-		PersistenceServiceImpl imp = new PersistenceServiceImpl();
-		RoomFactoryImpl cusroom= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+		RoomFactory fc = (RoomFactory) srv.getFactory(Factory.ROOMS);
+			
 		Room rmRoom = new Room();
-		Optional<List<Room>> customer_room = cusroom.findAll();
+		Optional<List<Room>> customer_room = fc.findAll();
 		
 		if(customer_room .isPresent()) {
 			System.out.println("******************Room Details***************");
@@ -227,14 +239,13 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		Room rm = null; 
 		
 		try {
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			CustomerFactoryImpl customer;
-			customer = (CustomerFactoryImpl) imp.getFactory(Factory.CUSTOMERS);
-			Optional<Customer> customerOptional = customer.findById(cid); 
+			CustomerFactory fc = (CustomerFactory) srv.getFactory(Factory.CUSTOMERS);
 			
-			PersistenceServiceImpl imp1= new PersistenceServiceImpl();
-			RoomFactoryImpl room= (RoomFactoryImpl) imp1.getFactory(Factory.ROOMS);
-			Optional<Room> roomDet= room.findById(rid);
+			Optional<Customer> customerOptional = fc.findById(cid); 
+			
+			RoomFactory rc = (RoomFactory) srv.getFactory(Factory.ROOMS);
+			
+			Optional<Room> roomDet= rc.findById(rid);
 			
 			
 			if(customerOptional.isPresent()){

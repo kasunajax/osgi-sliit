@@ -10,8 +10,7 @@ import lk.sliit.sa.osgi.persistence.service.PersistenceService;
 public class Activator implements BundleActivator {
 
 	private static BundleContext context;
-	ServiceRegistration registration;
-	ServiceReference reference;
+	ServiceRegistration<?> registration;
 
 	static BundleContext getContext() {
 		return context;
@@ -19,16 +18,20 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
+		System.out.println("Starting Room management service");
+		
+		ServiceReference<?> ref = context.getServiceReference(PersistenceService.class.getName());
+		PersistenceService ps = (PersistenceService)context.getService(ref);
+		
 		registration = bundleContext.registerService(RoomManagementPublish.class.getName(), 
-				new RoomManageImpl(), null);
-		reference = bundleContext.getServiceReference(PersistenceService.class.getName());
-		PersistenceService service = (PersistenceService)context.getService(reference);
+				new RoomManageImpl(ps), null);
+		
+		
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
 		System.out.println("Stopping Room management service");
 		registration.unregister();
-		bundleContext.ungetService(reference);
 	}
 
 }

@@ -1,20 +1,30 @@
 package roommanagementpublisher;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.io.*; 
 import java.util.*;
 
-import lk.sliit.sa.osgi.persistence.PersistenceServiceImpl;
-import lk.sliit.sa.osgi.persistence.RoomFactoryImpl;
+
 import lk.sliit.sa.osgi.persistence.service.Factory;
+import lk.sliit.sa.osgi.persistence.service.PersistenceService;
 import lk.sliit.sa.osgi.persistence.service.Room;
-import lk.sliit.sa.osgi.persistence.service.Room.Type;
+import lk.sliit.sa.osgi.persistence.service.RoomFactory;
 
 public class RoomManageImpl implements RoomManagementPublish{
 	
+
+	private PersistenceService srv;
+	
+	
+	
+	
+	public RoomManageImpl(PersistenceService srv) {
+		super();
+		this.srv = srv;
+	}
+
+
 
 	@Override
 	public boolean addRoomDetails(Double price, String title, String type) {
@@ -25,8 +35,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 			room.setTitle(title);
 			try {
 				System.out.println("Adding Room Details");
-				PersistenceServiceImpl imp = new PersistenceServiceImpl();
-				RoomFactoryImpl factory= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+				RoomFactory factory= (RoomFactory)srv.getFactory(Factory.ROOMS);
 		//		RoomFactoryImpl factory = new RoomFactoryImpl();
 				factory.add(room);
 				success=true;
@@ -58,8 +67,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 		
 		try {
 			System.out.println("Updating Room Details");
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			RoomFactoryImpl factory= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			RoomFactory factory= (RoomFactory)srv.getFactory(Factory.ROOMS);
 		//	RoomFactoryImpl factory = new RoomFactoryImpl();
 			factory.update(room);
 			success=true;
@@ -82,8 +90,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 	@Override
 	public void searchRoomsById(int id) {
 		try {
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			RoomFactory room= (RoomFactory)srv.getFactory(Factory.ROOMS);
 			//RoomFactoryImpl room = new RoomFactoryImpl();
 			Optional<Room> roomDet= room.findById(id);
 			
@@ -112,8 +119,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 	@Override
 	public void searchRoomsByAny(String field, Object value) {
 		try {
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			RoomFactory room= (RoomFactory)srv.getFactory(Factory.ROOMS);
 			//RoomFactoryImpl room = new RoomFactoryImpl();
 			Optional<List<Room>> roomDet = room.findBy(field, value);
 			
@@ -152,8 +158,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 		boolean success = false;
 		try {
 			System.out.println("Updating Room Details");
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			RoomFactory room= (RoomFactory)srv.getFactory(Factory.ROOMS);
 		//	RoomFactoryImpl room = new RoomFactoryImpl();
 			room.deleteById(id);
 			success = true;
@@ -176,8 +181,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 	@Override
 	public void searchAll() {
 		try {
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			RoomFactory room= (RoomFactory)srv.getFactory(Factory.ROOMS);
 			//RoomFactoryImpl room = new RoomFactoryImpl();
 			Optional<List<Room>> roomDet = room.findAll();
 			
@@ -214,8 +218,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 	@Override
 	public void searchByCustomerID(int custmId) {
 		try {
-			PersistenceServiceImpl imp = new PersistenceServiceImpl();
-			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);
+			RoomFactory room= (RoomFactory)srv.getFactory(Factory.ROOMS);
 			//RoomFactoryImpl room = new RoomFactoryImpl();
 			Optional<List<Room>> roomDet = room.findByCustomerId(custmId);
 			

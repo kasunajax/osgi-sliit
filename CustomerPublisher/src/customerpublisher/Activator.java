@@ -20,9 +20,11 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
 		System.out.println("Starting Customer Management Service");
-		publicServiceRegistration = bundleContext.registerService(CustomerPublish.class.getName(),new CustomerPublisherImpl(), null);
+		
 		reference = bundleContext.getServiceReference(PersistenceService.class.getName());
 		PersistenceService service = (PersistenceService)context.getService(reference);
+		
+		publicServiceRegistration = bundleContext.registerService(CustomerPublish.class.getName(),new CustomerPublisherImpl(service), null);
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
