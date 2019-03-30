@@ -46,5 +46,6 @@ public interface RoomFactory extends Factory{
 	
 	public Optional<Room> findById(int id) throws SQLException;
 	
+	public Optional<List<Room>> findByCustomerId(int id) throws SQLException;
 	
 }
