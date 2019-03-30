@@ -52,9 +52,6 @@ public class RoomFactoryImpl implements RoomFactory{
 		stmt.setDouble(2, room.getPrice());
 		stmt.setString(3, room.getType());
 		stmt.setInt(4, room.getId());
-		stmt.setDate(5, (java.sql.Date) room.getCheckIn());
-		stmt.setDate(6, (java.sql.Date) room.getCheckout());
-		stmt.setBoolean(7, room.isBooked());
 		stmt.execute();
 		
 	}
