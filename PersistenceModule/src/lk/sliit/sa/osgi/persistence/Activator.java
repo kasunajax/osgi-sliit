@@ -1,16 +1,9 @@
 package lk.sliit.sa.osgi.persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import lk.sliit.sa.osgi.persistence.service.Factory;
 import lk.sliit.sa.osgi.persistence.service.PersistenceService;
-import lk.sliit.sa.osgi.persistence.service.RoomFactory;
 
 public class Activator implements BundleActivator {
 

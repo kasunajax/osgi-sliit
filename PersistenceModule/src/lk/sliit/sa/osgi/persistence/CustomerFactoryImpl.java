@@ -6,20 +6,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import lk.sliit.sa.osgi.persistence.exceptions.CustomerExceptions;
 import lk.sliit.sa.osgi.persistence.exceptions.CustomerExceptions.CustomerAlreadyExistsException;
 import lk.sliit.sa.osgi.persistence.exceptions.CustomerExceptions.CustomerNotFoundException;
-import lk.sliit.sa.osgi.persistence.exceptions.RoomExceptions.RoomAlreadyExistsException;
-import lk.sliit.sa.osgi.persistence.exceptions.RoomExceptions.RoomNotFoundException;
 import lk.sliit.sa.osgi.persistence.service.Customer;
 import lk.sliit.sa.osgi.persistence.service.CustomerFactory;
-import lk.sliit.sa.osgi.persistence.service.Room;
-import lk.sliit.sa.osgi.persistence.service.RoomFactory;
 
 public class CustomerFactoryImpl implements CustomerFactory{
 

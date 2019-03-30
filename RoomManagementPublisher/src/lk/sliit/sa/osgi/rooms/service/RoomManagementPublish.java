@@ -1,6 +1,5 @@
 package lk.sliit.sa.osgi.rooms.service;
 
-import java.sql.Date;
 
 public interface RoomManagementPublish {
 
