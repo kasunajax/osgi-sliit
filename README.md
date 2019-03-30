@@ -31,6 +31,6 @@ After that select import existing projects and select all the displayed projects
 ## Authors
 
 * **K N Jayaweera** - *Initial work* - [kasunajax](https://github.com/kasunajax)
-* **Nibraz-Munaz** - *Dev Support* - [kasunajax](https://github.com/Nibraz-Munaz)
-* **PandukaAlahakoon** - *Dev Support* - [kasunajax](https://github.com/PandukaAlahakoon)
-* **Sanomikabandara** - *Dev Support* - [kasunajax](https://github.com/Sanomikabandara)
+* **Nibraz-Munaz** - *Dev Support* - [Nibraz-Munaz](https://github.com/Nibraz-Munaz)
+* **PandukaAlahakoon** - *Dev Support* - [PandukaAlahakoon](https://github.com/PandukaAlahakoon)
+* **Sanomikabandara** - *Dev Support* - [Sanomikabandara](https://github.com/Sanomikabandara)
