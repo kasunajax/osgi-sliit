@@ -16,7 +16,11 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
 		
+		System.out.println("Persistence Service Booting ... ");
+		
 		context.registerService(PersistenceService.class.getName(), new PersistenceServiceImpl(), null);
+		
+		System.out.println("Persistence Service Loaded Successfully !");
 		
 //		RoomFactory fac = (RoomFactory) new PersistenceServiceImpl().getFactory(Factory.ROOMS);
 //		fac.add(new RoomImpl(2, "do", "32ds"));
