@@ -1,6 +1,5 @@
 package lk.sliit.sa.osgi.customers.service;
 
-import lk.sliit.sa.osgi.persistence.service.Room;
 
 public interface CustomerPublish {
 	
