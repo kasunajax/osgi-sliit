@@ -15,8 +15,8 @@ public class Activator implements BundleActivator {
 	static BundleContext getContext() {
 		return context;
 	}
-	ServiceRegistration publicServiceRegistration ;
-	ServiceReference reference;
+	ServiceRegistration<?> publicServiceRegistration ;
+	ServiceReference<?> reference;
 
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;

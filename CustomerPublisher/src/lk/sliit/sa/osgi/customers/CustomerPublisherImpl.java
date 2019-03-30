@@ -202,7 +202,6 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		try {
 		RoomFactory fc = (RoomFactory) srv.getFactory(Factory.ROOMS);
 			
-		Room rmRoom = new Room();
 		Optional<List<Room>> customer_room = fc.findAll();
 		
 		if(customer_room .isPresent()) {
