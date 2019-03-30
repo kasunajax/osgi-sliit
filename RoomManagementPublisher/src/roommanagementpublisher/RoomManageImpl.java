@@ -114,7 +114,7 @@ public class RoomManageImpl implements RoomManagementPublish{
 	
 	
 	@Override
-	public void searchRoomsByAny(String field, String value) {
+	public void searchRoomsByAny(String field, Object value) {
 		try {
 			PersistenceServiceImpl imp = new PersistenceServiceImpl();
 			RoomFactoryImpl room= (RoomFactoryImpl) imp.getFactory(Factory.ROOMS);

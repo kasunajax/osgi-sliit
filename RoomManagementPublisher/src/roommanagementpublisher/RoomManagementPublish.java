@@ -11,7 +11,7 @@ public interface RoomManagementPublish {
 			String type,Date checkIn,Date checkout,boolean booked );
 	public boolean DeleteRoomDetails(int id);
 	public void searchRoomsById(int id);
-	public void searchRoomsByAny(String field,String value);
+	public void searchRoomsByAny(String field,Object value);
 	public void searchAll();
 	public void searchByCustomerID(int custmID);
 	
