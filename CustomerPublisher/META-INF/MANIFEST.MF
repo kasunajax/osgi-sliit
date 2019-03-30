@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CustomerPublisher
+Bundle-SymbolicName: CustomerPublisher
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: customerpublisher.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: CustomerPublisher
+Import-Package: lk.sliit.sa.osgi.persistence,
+ lk.sliit.sa.osgi.persistence.service,
+ org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy

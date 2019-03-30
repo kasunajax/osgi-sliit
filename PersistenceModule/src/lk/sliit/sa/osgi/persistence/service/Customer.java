@@ -39,6 +39,10 @@ public class Customer {
 		this.contact = contact;
 	}
 	
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void addRoom(Room room) {
 		rooms.add(room);
 	}
