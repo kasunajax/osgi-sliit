@@ -17,11 +17,12 @@ public class RoomManageImpl implements RoomManagementPublish{
 	
 
 	@Override
-	public boolean addRoomDetails(int id, String title, String type) {
+	public boolean addRoomDetails(Double price, String title, String type) {
 		boolean success =false;
 			Room room = new Room();
-			room.setId(id);
+			room.setPrice(price);
 			room.setType(type);
+			room.setTitle(title);
 			try {
 				System.out.println("Adding Room Details");
 				PersistenceServiceImpl imp = new PersistenceServiceImpl();
@@ -47,19 +48,14 @@ public class RoomManageImpl implements RoomManagementPublish{
 	
 
 	@Override
-	public boolean updateRoomDetails(int id,String title,String status,Double price,int roomID,
-			String type,Date checkIn,Date checkout,boolean booked ){
+	public boolean updateRoomDetails(int id,String title,String type,Double price ){
 		boolean success =false;
 		Room room = new Room();
 		room.setId(id);
-		room.setStatus(status);
+		room.setType(type);
 		room.setTitle(title);
 		room.setPrice(price);
-		room.setId(roomID);
-		room.setType(type);
-		room.setCheckIn(checkIn);
-		room.setCheckout(checkout);
-		room.setBooked(booked);
+		
 		try {
 			System.out.println("Updating Room Details");
 			PersistenceServiceImpl imp = new PersistenceServiceImpl();

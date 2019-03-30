@@ -6,9 +6,8 @@ public interface RoomManagementPublish {
 
 	//need to decide return types
 	//implemented
-	public boolean addRoomDetails(int id,String title,String status);
-	public boolean updateRoomDetails(int id,String title,String status,Double price,int roomID,
-			String type,Date checkIn,Date checkout,boolean booked );
+	public boolean addRoomDetails(Double price,String title,String status);
+	public boolean updateRoomDetails(int id,String title,String type,Double price );
 	public boolean DeleteRoomDetails(int id);
 	public void searchRoomsById(int id);
 	public void searchRoomsByAny(String field,Object value);
