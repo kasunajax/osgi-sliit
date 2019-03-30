@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RoomManagementPublisher
+Bundle-SymbolicName: RoomManagementPublisher
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: roommanagementpublisher.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: RoomManagementPublisher
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.osgi,
+ PersistenceModule;bundle-version="1.0.0",
+ PersistenceModule
+Export-Package: roommanagementpublisher
