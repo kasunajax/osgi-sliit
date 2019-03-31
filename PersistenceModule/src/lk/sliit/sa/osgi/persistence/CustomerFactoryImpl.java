@@ -73,7 +73,7 @@ public class CustomerFactoryImpl implements CustomerFactory{
 				stmt_room.execute();
 			
 			} catch (SQLException e) {
-				System.err.println(e.getMessage());
+				System.out.println(e.getMessage());
 			}
 			
 		}));

@@ -63,7 +63,6 @@ public class RoomFactoryImpl implements RoomFactory{
 		PreparedStatement stmt = conn.prepareStatement(query);
 		stmt.setString(1, value.toString());
 		ResultSet rs = stmt.executeQuery();
-		System.out.println(stmt.toString());
 		List<Room> rooms = new ArrayList<>();
 		
 		while(rs.next()) {

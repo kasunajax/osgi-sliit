@@ -1,5 +1,6 @@
 package lk.sliit.sa.osgi.customers;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -169,7 +170,8 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		try {
 			RoomFactory fc = (RoomFactory) srv.getFactory(Factory.ROOMS);
 			
-		Optional<List<Room>> customer_room = fc.findBy("isbooked" , true);
+		//Optional<List<Room>> customer_room = fc.findBy(RoomFactory.COL_STATUS , Room.AVAILABLE);
+		Optional<List<Room>> customer_room = fc.findAll();
 		
 		if(customer_room .isPresent()) {
 			System.out.println("******************Room Details***************");
@@ -177,12 +179,15 @@ public class CustomerPublisherImpl implements CustomerPublish{
 			Iterator<Room> roomIterator = room.iterator();
 			while(roomIterator.hasNext()) {
 				Room rm = roomIterator.next();
+				
+				if(!rm.isBooked()) {
 				  System.out.println("Room ID:     "+rm.getId());
 				    System.out.println("Room Name:   "+rm.getTitle());
 				    System.out.println("Room Type:  "+ rm.getType());
-				    System.out.println("Room Status: "+rm.getStatus());
-				    System.out.println("Room Avaliability : "+ rm.isBooked());
+				    //System.out.println("Room Status: "+rm.getStatus());
+				    System.out.println("Room Avaliability : "+ (!rm.isBooked() ? "Available": "N/A"));
 				    System.out.println("***************************************");
+				}
 			}
 		}
 		else {
@@ -212,11 +217,11 @@ public class CustomerPublisherImpl implements CustomerPublish{
 				Room rm = roomIterator.next();
 				  System.out.println("Room ID:     "+rm.getId());
 				    System.out.println("Room Name:   "+rm.getTitle());
-				    System.out.println("Room Status: "+rm.getStatus());
+				    //System.out.println("Room Status: "+rm.getStatus());
 				    System.out.println("Room Type:  "+ rm.getType());
-				    System.out.println("Room Avaliability : "+ rm.isBooked());
-				    System.out.println("Room CheckIn:  "+ rm.getCheckIn());
-				    System.out.println("Room CheckOut:  "+ rm.getCheckout());
+				    System.out.println("Room Avaliability : "+ (!rm.isBooked() ? "Available": "Booked"));
+				    System.out.println("Room CheckIn:  "+ (rm.getCheckIn() == null ? "N/A": rm.getCheckIn().toString()));
+				    System.out.println("Room CheckOut:  "+ (rm.getCheckout() == null ? "N/A": rm.getCheckIn().toString()));
 				    System.out.println("***************************************");
 			}
 		}
@@ -235,6 +240,7 @@ public class CustomerPublisherImpl implements CustomerPublish{
 	public boolean addingRoom(int cid, int rid) {
 		boolean success = false;
 		Room rm = null; 
+		Customer cus = null;
 		
 		try {
 			CustomerFactory fc = (CustomerFactory) srv.getFactory(Factory.CUSTOMERS);
@@ -247,7 +253,7 @@ public class CustomerPublisherImpl implements CustomerPublish{
 			
 			
 			if(customerOptional.isPresent()){
-				Customer cus = customerOptional.get();
+				cus = customerOptional.get();
 				System.out.println("**** Details of Cusotmer Id "+ cid +" ****");
 			    System.out.println("Cusotmer ID:     "+cus.getId());
 				System.out.println("Customer First Name:   "+cus.getFname());
@@ -257,26 +263,117 @@ public class CustomerPublisherImpl implements CustomerPublish{
 			    System.out.println("Cusotmer Password: "+cus.getPassword());
 			    System.out.println("Customer Contact: "+cus.getContact());
 			    System.out.println("******************************************");
+			    
+				if(roomDet.isPresent()){
+					rm = roomDet.get();
+					System.out.println("**** Details of Room Id "+ rid+" ****");
+				    System.out.println("Room ID:     "+rm.getId());
+				    System.out.println("Room Name:   "+rm.getTitle());
+				    System.out.println("Room Status: "+rm.getStatus());
+				    System.out.println("*****************");
+				    
+//				    try {
+//				    
+//				    cus.addRoom(rm);
+//				    System.out.println(cus);
+//				    fc.update(cus);
+//				    
+//				    
+//				    
+//				    } catch(Exception e) {
+//				    	
+//				    	System.out.println(e.getMessage());
+//				    	
+//				    }
+				    
+				    
+				    
+				    
+					fc.findById(cid).ifPresent(customer -> {
+						
+						try {
+//							
+				//
+//							
+//							rs.findById(3).ifPresent(room -> {
+//							
+//							try {
+//								
+//								//room.setStatus(Room.RESERVED);
+//								room.setCheckIn(new Date());
+//								room.setCheckout(new Date());
+//								room.setStatus(Room.RESERVED);
+//								room.setBooked(true);
+//								customer.addRoom(room);
+//								//rs.update(room);
+//							} catch (Exception e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//							
+//						});
+//							
+							rc.findById(rid).ifPresent(room -> {
+								
+								try {
+									
+									//room.setStatus(Room.RESERVED);
+									room.setCheckIn(new Date());
+									room.setCheckout(new Date());
+									room.setStatus(Room.RESERVED);
+									room.setBooked(true);
+									customer.addRoom(room);
+									
+									//rs.update(room);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+							});
+						
+							
+							
+							
+							fc.update(customer);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					});			    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				    
+				}
+				else {
+				    System.out.println("No Room Details were found to the entered Room ID");
+				}
 			}
 			else {
 			    System.out.println("No Customer Details were found to the entered Customer ID");
 			
 			}
 			
-			if(roomDet.isPresent()){
-				rm = roomDet.get();
-				System.out.println("**** Details of Room Id "+ rid+" ****");
-			    System.out.println("Room ID:     "+rm.getId());
-			    System.out.println("Room Name:   "+rm.getTitle());
-			    System.out.println("Room Status: "+rm.getStatus());
-			    System.out.println("*****************");
-			}
-			else {
-			    System.out.println("No Room Details were found to the entered Room ID");
-			}
+
 			    
-			Customer customer2 = new Customer();
-			customer2.addRoom(rm);
+			//Customer customer2 = new Customer();
+			//customer2.addRoom(rm);
+			
+			
+			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -285,7 +382,7 @@ public class CustomerPublisherImpl implements CustomerPublish{
 		
 		
 		 
-		return success;
+		return true;
 	}
 
 //	@Override
