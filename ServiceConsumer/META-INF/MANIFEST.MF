@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ServiceConsumer
+Bundle-SymbolicName: ServiceConsumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: lk.sliit.sa.osgi.application.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: serviceConsumer
+Bundle-ActivationPolicy: lazy
+Import-Package: lk.sliit.sa.osgi.customers.service,
+ lk.sliit.sa.osgi.rooms.service,
+ org.osgi.framework;version="1.9.0"
