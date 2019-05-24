@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PersistenceModuleConsumer
+Bundle-SymbolicName: PersistenceModuleConsumer
+Bundle-Version: 1.0.0.1
+Bundle-Activator: lk.sliit.sa.osgi.persistence.consumer.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: PersistenceModuleConsumer
+Import-Package: lk.sliit.sa.osgi.persistence.service,
+ org.osgi.framework;version="1.3.0"

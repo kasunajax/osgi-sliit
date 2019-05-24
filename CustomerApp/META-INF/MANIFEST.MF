@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CustomerApp
+Bundle-SymbolicName: CustomerApp
+Bundle-Version: 1.0.0.1
+Bundle-Activator: lk.sliit.sa.osgi.app.customers.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: CustomerApp
+Import-Package: lk.sliit.sa.osgi.dev.customers.service,
+ org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy
